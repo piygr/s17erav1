@@ -6,6 +6,7 @@ import torch.nn as nn
 import torch
 import math
 
+device = "cuda" if torch.cuda.is_available() else "cpu"
 
 # 1. Create a class which subclasses nn.Module
 class PatchEmbedding(nn.Module):
@@ -150,13 +151,13 @@ class Transformer(nn.Module):
         super().__init__()
 
         if not patch_embedding:
-            self.token_embedding_table = nn.Embedding(vocab_size, embed_size)
+            self.token_embedding_table = nn.Embedding(vocab_size, embed_size).to(device)
 
         self.patch_embedding = patch_embedding
         self.class_embedding = class_embedding
 
         # each position from 0 to block_size-1 will get its embedding
-        self.position_embedding_table = nn.Embedding(seq_len, embed_size)
+        self.position_embedding_table = nn.Embedding(seq_len, embed_size).to(device)
 
         # backbone
         layers = []
