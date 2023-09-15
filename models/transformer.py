@@ -196,7 +196,7 @@ class Transformer(nn.Module):
 
         else:
             B, C, H, W = idx.shape
-            print('Input: ', idx.shape)
+            #print('Input: ', idx.shape)
             class_token = self.class_embedding.expand(B, -1, -1)
             #print('Class token: ', class_token.shape)
             # "-1" means to infer the dimension (try this line on its own)
