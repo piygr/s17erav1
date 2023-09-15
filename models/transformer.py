@@ -190,7 +190,7 @@ class Transformer(nn.Module):
 
             token_emb = self.token_embedding_table(idx) #B,T,C
             # (T, C)
-            posit_emb = self.position_embedding_table(torch.arange(T))
+            posit_emb = self.position_embedding_table(torch.arange(T).to(device))
 
             x = token_emb + posit_emb
 
