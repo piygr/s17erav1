@@ -201,13 +201,13 @@ class Transformer(nn.Module):
             print('Class token: ', class_token.shape)
             # "-1" means to infer the dimension (try this line on its own)
 
-            x = self.patch_embedding(idx) #B, NUM_PATCH, C=embed_size
+            x = self.patch_embedding(idx).to(device) #B, NUM_PATCH, C=embed_size
             print('Patch Embedding: ', x.shape)
 
             x = torch.cat((class_token, x), dim=1)  #B, 1+NUM_PATCH, C
             print('1+PatchEmbed', x.shape)
 
-            posit_emb = self.position_embedding_table(torch.arange(x.shape[1]))
+            posit_emb = self.position_embedding_table(torch.arange(x.shape[1]).to(device))
             print('Posit Embed: ', posit_emb.shape)
 
             x = posit_emb + x
